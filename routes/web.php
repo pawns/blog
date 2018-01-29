@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['domain' => env('HOME_DOMAIN',''),'middleware' => 'web','namespace' => 'Blog'],function ()
+{
+    Route::get('/blog/markdown','BlogController@getMark');
+    Route::get('/blog/md-editor','BlogController@getEditor');
+    Route::get('/','BlogController@getIndex');
+    Route::get('/blog/get-content/{id}','BlogController@getViewContent');
+    Route::post('/blog/store-blog','BlogController@postStoreContent');
+
 });
